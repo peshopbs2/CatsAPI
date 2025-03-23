@@ -7,5 +7,6 @@
         public int Gender { get; set; }
         public string Breed { get; set; }
         public string ImageUrl { get; set; }
+        public virtual ICollection<Visit>? Visits { get; set; }
     }
 }

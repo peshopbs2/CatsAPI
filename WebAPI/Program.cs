@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
-    //TODO: add lazy loading proxies
+    options.UseLazyLoadingProxies();
 });
 
 builder.Services.AddControllers();
