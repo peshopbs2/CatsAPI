@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using WebAPI.Data;
+using WebAPI.Data.Seeders;
 using WebAPI.Services;
 using WebAPI.Services.Abstraction;
 using WebAPI.Settings;
@@ -84,7 +85,14 @@ builder.Services.AddSwaggerGen(options =>
                 });
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await UserSeeder.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
